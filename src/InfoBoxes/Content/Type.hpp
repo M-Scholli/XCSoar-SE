@@ -154,7 +154,13 @@ namespace InfoBoxFactory
 
     FIN_MC0_ALTD,
 
-    Com_Alt_GND_a_FL, /* CombinedInfoBox: Value is Height AGL and the comment is flight level. */
+    Com_Alt_GND_a_FL,   /* CombinedInfoBox: Value is Height AGL and the comment is flight level. */
+    Com_Fin_Dis_a_ETE,  /* CombinedInfoBox: Value is FinalDistance and the comment is ETE*/
+    Com_Fin_Dis_a_ETA,  /* CombinedInfoBox: Value is FinalDistance and the comment is ETA*/
+    Com_WP_Name,        /* CombinedInfoBox: Title is WP Name, Value is WP direction and the comment is WP Distance*/
+    Com_VTask_a_PerClim,/* CombinedInfoBox: Value is VTask and the comment is PercentClimb*/
+    Com_GR_Avg_a_Fin,   /* CombinedInfoBox: Value is GR average and the comment is GR final*/
+    Com_Wp_AltDiff_a_GR,/* CombinedInfoBox: Value is WP altitude difference and the comment is GR WP*/
 
     e_NUM_TYPES /* Last item */
   };

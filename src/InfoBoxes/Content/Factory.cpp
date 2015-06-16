@@ -42,6 +42,7 @@ Copyright_License {
 #include "InfoBoxes/Content/Weather.hpp"
 #include "InfoBoxes/Content/Airspace.hpp"
 #include "InfoBoxes/Content/CombinedAltitude.hpp"
+#include "InfoBoxes/Content/CombinedTask.hpp"
 
 #include "Util/Macros.hpp"
 #include "Language/Language.hpp"
@@ -1287,6 +1288,62 @@ static constexpr MetaData meta_data[] = {
     Com_Alt_GND_a_FL,
     Com_Alt_GND_a_FL,
   },
+  {
+    N_("Combi final dist. a. ETE"),
+    N_("FinDist+ETE"),
+    N_("CombinedInfoBox: Value is final distance and comment is ETE"),
+    UpdateInfoBoxCombinedFinalDistanceaETE,
+    Com_Fin_Dis_a_ETE,
+    Com_Fin_Dis_a_ETE,
+  },
+
+  {
+     N_("Combi final dist. a. ETA"),
+     N_("FinDist+ETA"),
+     N_("CombinedInfoBox: Value is final distance and comment is ETA"),
+     UpdateInfoBoxCombinedFinalDistanceaETA,
+     combinedaltitude_infobox_panels,
+     Com_Fin_Dis_a_ETA,
+     Com_Fin_Dis_a_ETA,
+  },
+
+  {
+    N_("Combi next waypoint + distance"),
+    N_("NextWP+Dist"),
+    N_("CombinedInfoBox: Title is the name of the currently selected turn point. Value is the difference between the glider's track bearing, to the bearing of the next waypoint. Comment is the distance to the currently selected waypoint. For AAT tasks, this is the distance to the target within the AAT sector. (Touch-screen/PC only) Pressing the enter cursor key brings up the waypoint details."),
+    UpdateInfoBoxCombinedNextaDistance,
+    combined_next_waypoint_infobox_panels,
+    Com_WP_Name, // Time flt
+    Com_WP_Name, // Start height
+  },
+
+  {
+    N_("Combi Speed task average + % Climb"),
+    N_("V Task+%Cl."),
+    N_("CombinedInfoBox: Value is average cross country speed while on current task, not compensated for altitude. Comment is percentage of time spent in climb mode. These statistics are reset upon starting the task."),
+    UpdateInfoBoxCombinedTaskSpeedaPercentClimb,
+    Com_VTask_a_PerClim, // V Task Inst
+    Com_VTask_a_PerClim, // Fin AltR
+  },
+
+  {
+     N_("Combi GR Average + Final GR"),
+     N_("GR Avg+Fin"),
+     N_("CombinedInfoBox: Value is the average glide ratio and the comment is the required glide ratio over ground to finish the task, given by the distance to go divided by the height required to arrive at the safety arrival height."),
+     UpdateInfoBoxCombinedAvgGRaFinalGR,
+     Com_GR_Avg_a_Fin, // Next GR
+     Com_GR_Avg_a_Fin, // Fin GR
+   },
+
+   {
+     N_("Combi Next altitude difference + GR"),
+     N_("WP AltD+GR"),
+     N_("CombinedInfoBox: Value is arrival altitude at the next waypoint relative to the safety arrival height. For AAT tasks, the target within the AAT sector is used. Commend is GR next WP"),
+     UpdateInfoBoxCombinedNextAltitudeDiffaGR,
+     combined_next_waypoint_infobox_panels,
+     Com_Wp_AltDiff_a_GR, // WP MC0 AltD
+     Com_Wp_AltDiff_a_GR, // WP Dist-N
+   },
 
 };
 
