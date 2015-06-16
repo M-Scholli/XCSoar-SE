@@ -34,4 +34,7 @@ public:
   virtual const InfoBoxPanel *GetDialogContent() override;
 };
 
+void
+UpdateInfoBoxCombinedAltitudeAGLaFL(InfoBoxData &data);
+
 #endif

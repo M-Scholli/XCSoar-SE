@@ -154,6 +154,8 @@ namespace InfoBoxFactory
 
     FIN_MC0_ALTD,
 
+    Com_Alt_GND_a_FL, /* CombinedInfoBox: Value is Height AGL and the comment is flight level. */
+
     e_NUM_TYPES /* Last item */
   };
 

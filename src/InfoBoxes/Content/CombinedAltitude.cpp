@@ -42,6 +42,13 @@ Copyright_License {
 #include <tchar.h>
 #include <stdio.h>
 
+#ifdef __clang__
+
+/* gcc gives "redeclaration differs in 'constexpr'" */
+
+constexpr
+#endif
+
 const InfoBoxPanel combinedaltitude_infobox_panels[] = {
   { N_("Simulator"), LoadAltitudeSimulatorPanel },
   { N_("Info"), LoadAltitudeInfoPanel },
@@ -54,3 +61,44 @@ const InfoBoxPanel *
 InfoBoxContentCombinedAltitude::GetDialogContent() {
   return combinedaltitude_infobox_panels;
 }
+
+void
+UpdateInfoBoxCombinedAltitudeAGLaFL(InfoBoxData &data)
+{
+  // Altitude AGL / Value
+  const DerivedInfo &calculated = CommonInterface::Calculated();
+  const NMEAInfo &basic = CommonInterface::Basic();
+  const ComputerSettings &settings_computer =
+    CommonInterface::GetComputerSettings();
+
+  if (!calculated.altitude_agl_valid) {
+    data.SetValueInvalid();
+    return;
+  }
+
+  data.SetValueFromAltitude(calculated.altitude_agl);
+  data.SetValueColor(calculated.altitude_agl <
+      CommonInterface::GetComputerSettings().task.route_planner.safety_height_terrain ? 1 : 0);
+
+ // FlightLevel / Comment
+ if (basic.pressure_altitude_available) {
+    fixed Altitude = Units::ToUserUnit(basic.pressure_altitude, Unit::FEET);
+
+    data.UnsafeFormatComment(_T("%03dFL"), iround(Altitude / 100));
+
+  } else if (basic.gps_altitude_available &&
+             settings_computer.pressure_available) {
+    // Take gps altitude as baro altitude. This is inaccurate but still fits our needs.
+    const AtmosphericPressure &qnh = settings_computer.pressure;
+    fixed Altitude = Units::ToUserUnit(qnh.QNHAltitudeToPressureAltitude(basic.gps_altitude), Unit::FEET);
+
+    data.UnsafeFormatComment(_T("%03dFL"), iround(Altitude / 100));
+
+  } else if ((basic.baro_altitude_available || basic.gps_altitude_available) &&
+             !settings_computer.pressure_available) {
+    data.SetComment(_("no QNH"));
+  } else {
+    data.SetCommentInvalid();
+  }
+}
+

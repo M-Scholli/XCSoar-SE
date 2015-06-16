@@ -41,6 +41,7 @@ Copyright_License {
 #include "InfoBoxes/Content/Trace.hpp"
 #include "InfoBoxes/Content/Weather.hpp"
 #include "InfoBoxes/Content/Airspace.hpp"
+#include "InfoBoxes/Content/CombinedAltitude.hpp"
 
 #include "Util/Macros.hpp"
 #include "Language/Language.hpp"
@@ -1276,6 +1277,17 @@ static constexpr MetaData meta_data[] = {
     FIN_MC0_ALTD,
     FIN_MC0_ALTD,
   },
+
+  {
+    N_("Combi Alt GND and FL"),
+    N_("GND a Fl"),
+    N_("CombinedInfoBox: The value is the navigation altitude minus the terrain elevation obtained from the terrain file. The value is coloured red when the glider is below the terrain safety clearance height.And the comment is the flightlevel"),
+    UpdateInfoBoxCombinedAltitudeAGLaFL,
+    combinedaltitude_infobox_panels,
+    Com_Alt_GND_a_FL,
+    Com_Alt_GND_a_FL,
+  },
+
 };
 
 static_assert(ARRAY_SIZE(meta_data) == NUM_TYPES,
